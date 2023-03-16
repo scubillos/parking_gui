@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    container_name: ${APP_NAME}_app
+    build: 
+      context: docker-compose/node
+      dockerfile: Dockerfile
+    image: node:14-vuejs3-parking
+    working_dir: /var/www/html/app/
+    ports:
+      - 3000:3000
+    volumes:
+      - ./${DIR_APP}/:/var/www/html/app
+    tty: true
+    networks:
+      net:
+        aliases:
+          - ${APP_NAME}_app
+networks:
+  net:
+    driver: bridge
