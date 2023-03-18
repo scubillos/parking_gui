@@ -35,6 +35,9 @@
                 <MDBBtn color="success" size="sm" rounded @click="show(reservation.id)">
                   Editar
                 </MDBBtn>
+                <MDBBtn color="danger" size="sm" rounded @click="cancel(reservation.id)">
+                  Cancelar
+                </MDBBtn>
               </td>
             </tr>
 
@@ -116,6 +119,11 @@ const show = async (id: number) => {
   ReservationsStore.action = 'edit';
   ReservationsStore.modalForm = true;
   await ReservationsStore.getLocations();
+};
+
+const cancel = async (id: number) => {
+  await ReservationsStore.cancel(id);
+  ReservationsStore.action = 'create';
 };
 
 </script>

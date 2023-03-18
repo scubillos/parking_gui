@@ -87,18 +87,26 @@ export const useReservationsStore = defineStore('reservationsStore', {
     async create(): Promise<void> {
       const response = await axiosHttp.post('/reservation', this.form);
       if (response.data.success) {
-        toast.success("Reservacion creada exitosamente");
+        toast.success("Reservación creada exitosamente");
       }
     },
 
     async update(): Promise<void> {
       const response = await axiosHttp.put(`/reservation/${this.form.id}`, this.form);
-      toast.success("Reservacion actualizada exitosamente");
+      toast.success("Reservación actualizada exitosamente");
     },
 
     async show(id: number): Promise<void> {
       const response = await axiosHttp.get(`/reservation/${id}`);
       this.form = response.data.data;
+    },
+
+    async cancel(id: number): Promise<void> {
+      const response = await axiosHttp.delete(`/reservation/${id}`);
+      if (response.status === 204) {
+        toast.success("Reservación cancelada correctamente");
+        await this.getAll();
+      }
     }
   }
 });

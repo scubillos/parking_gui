@@ -49,16 +49,6 @@
           <option v-for="location in ReservationsStore.locations" :value="location.id" v-text="location.text" />
         </select>
       </MDBCol>
-      <MDBCol col="6" v-if="ReservationsStore.action === 'edit'">
-        <label>Activo</label>
-        <br>
-        <input
-          type="checkbox"
-          v-model="ReservationsStore.form.status"
-          id="form_status"
-          value="1"
-        />
-      </MDBCol>
     </MDBRow>
 
   </form>
