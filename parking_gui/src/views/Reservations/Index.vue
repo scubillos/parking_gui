@@ -5,15 +5,23 @@
         <h5>Listado de reservaciones</h5>
       </MDBCardHeader>
       <MDBCardBody style="margin-bottom: 50px;">
-        <div class="d-flex flex-row-reverse mb-3">
-          <MDBBtn color="primary"
-                  aria-controls="modalForm"
-                  @click="newForm()"
-          >
-            <i class="fas fa-plus"></i>
-            Nueva reserva
-          </MDBBtn>
-        </div>
+        <MDBRow>
+          <MDBCol col="2" class="d-flex mb-3">
+            <MDBInput label="# Placa"
+                      v-model="ReservationsStore.filterPlat"
+                      style="text-transform: uppercase"
+            />
+          </MDBCol >
+          <MDBCol col="10" class="d-flex flex-row-reverse mb-3">
+            <MDBBtn color="primary"
+                    aria-controls="modalForm"
+                    @click="newForm()"
+            >
+              <i class="fas fa-plus"></i>
+              Nueva reserva
+            </MDBBtn>
+          </MDBCol>
+        </MDBRow>
         <div>
           <MDBTable class="align-middle mb-0 bg-white" responsive hover>
             <thead class="bg-light">
@@ -26,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="reservation in ReservationsStore.reservation_list">
+            <tr v-for="reservation in ReservationsStore.filterTable()">
               <td>{{reservation.plat}}</td>
               <td v-text="reservation.Day" />
               <td v-text="ReservationsStore.transformShedule(reservation.Schedule)" />
@@ -84,12 +92,15 @@ import {
   MDBCard,
   MDBCardHeader,
   MDBCardBody,
+  MDBCol,
   MDBContainer,
+  MDBInput,
   MDBModal,
   MDBModalHeader,
   MDBModalTitle,
   MDBModalBody,
   MDBModalFooter,
+  MDBRow
 } from 'mdb-vue-ui-kit';
 import FormReservation from './FormReservation.vue';
 import { ref, onMounted } from "vue";

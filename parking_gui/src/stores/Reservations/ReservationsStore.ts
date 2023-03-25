@@ -19,6 +19,7 @@ export const useReservationsStore = defineStore('reservationsStore', {
       locations: [] as Location[],
       modalForm: false as boolean,
       textTableEmpty: '' as string,
+      filterPlat: '' as string,
       form: {} as Reservation
     }
   },
@@ -121,6 +122,21 @@ export const useReservationsStore = defineStore('reservationsStore', {
         toast.success("Reservación cancelada correctamente");
         await this.getAll();
       }
+    },
+
+    filterTable() {
+      if (this.filterPlat !== '') {
+        this.filterPlat = this.filterPlat.toUpperCase();
+      } else {
+        this.textTableEmpty = '';
+      }
+      let filtered = this.reservation_list.filter(reservation => reservation.plat.includes(this.filterPlat));
+      if (filtered.length === 0 && this.filterPlat !== '') {
+        this.textTableEmpty = 'No se encontraron registros';
+      } else if (this.filterPlat !== '') {
+        this.textTableEmpty = '';
+      }
+      return filtered;
     }
   }
 });

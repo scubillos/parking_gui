@@ -9,6 +9,7 @@
           type="text"
           id="form_plat_number"
           v-model="ReservationsStore.form.plat_number"
+          style="text-transform: uppercase"
         />
       </MDBCol>
     </MDBRow>
