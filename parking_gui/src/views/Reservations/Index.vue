@@ -40,7 +40,9 @@
                 </MDBBtn>
               </td>
             </tr>
-
+            <tr v-if="ReservationsStore.textTableEmpty !== ''">
+              <td colspan="5" class="text-center" v-text="ReservationsStore.textTableEmpty"></td>
+            </tr>
             </tbody>
           </MDBTable>
         </div>

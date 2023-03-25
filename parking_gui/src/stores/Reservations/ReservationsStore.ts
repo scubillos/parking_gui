@@ -18,14 +18,21 @@ export const useReservationsStore = defineStore('reservationsStore', {
       schedules: [] as Schedule[],
       locations: [] as Location[],
       modalForm: false as boolean,
+      textTableEmpty: '' as string,
       form: {} as Reservation
     }
   },
 
   actions: {
     async getAll(): Promise<void> {
+      this.textTableEmpty = 'Cargando registros, por favor espere...';
       const response = await axiosHttp.get('/reservations');
       this.reservation_list = response.data.data;
+      if (this.reservation_list.length === 0) {
+        this.textTableEmpty = 'No hay registros disponibles';
+      } else {
+        this.textTableEmpty = '';
+      }
       this.modalForm = false;
     },
 
@@ -33,7 +40,14 @@ export const useReservationsStore = defineStore('reservationsStore', {
       this.locations = [] as Location[];
 
       if (this.form.schedule_day && this.form.schedule) {
+        this.locations.push({
+          id: 0,
+          text: 'Cargando...'
+        });
+        this.form.location_id = 0;
+
         const response = await axiosHttp.get(`/locations/date/${this.form.schedule_day}/schedule/${this.form.schedule}`);
+        this.locations = [] as Location[];
         response.data.data.forEach((row : object) => {
           this.locations.push({
             id: row.id,

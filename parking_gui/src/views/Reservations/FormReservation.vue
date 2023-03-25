@@ -59,6 +59,8 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-vue-ui-kit";
+
+import { toast } from "vue3-toastify";
 import { useReservationsStore } from "../../stores/Reservations/ReservationsStore";
 import { onMounted } from "vue";
 const ReservationsStore = useReservationsStore();
@@ -66,6 +68,26 @@ const ReservationsStore = useReservationsStore();
 onMounted(() => {
   ReservationsStore.getSchedules();
 });
+
+const handleDate = function () {
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  let now = `${year}-${month}-${day}`;
+
+  const schedule_day = new Date(now);
+  const min_date = new Date(ReservationsStore.form.schedule_day);
+
+  if (schedule_day < min_date) {
+    ReservationsStore.form.schedule_day = now;
+    toast.error('La fecha no debe ser anterior al día de hoy');
+  } else {
+    filterLocations();
+  }
+}
 
 const filterLocations = async function () {
   await ReservationsStore.getLocations();
