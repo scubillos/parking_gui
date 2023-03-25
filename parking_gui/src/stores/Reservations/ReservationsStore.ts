@@ -127,8 +127,6 @@ export const useReservationsStore = defineStore('reservationsStore', {
     filterTable() {
       if (this.filterPlat !== '') {
         this.filterPlat = this.filterPlat.toUpperCase();
-      } else {
-        this.textTableEmpty = '';
       }
       let filtered = this.reservation_list.filter(reservation => reservation.plat.includes(this.filterPlat));
       if (filtered.length === 0 && this.filterPlat !== '') {

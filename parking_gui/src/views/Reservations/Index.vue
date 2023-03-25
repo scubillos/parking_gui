@@ -48,7 +48,7 @@
                 </MDBBtn>
               </td>
             </tr>
-            <tr v-if="ReservationsStore.textTableEmpty !== ''">
+            <tr v-if="ReservationsStore.textTableEmpty !== '' && ReservationsStore.filterTable().length === 0">
               <td colspan="5" class="text-center" v-text="ReservationsStore.textTableEmpty"></td>
             </tr>
             </tbody>
