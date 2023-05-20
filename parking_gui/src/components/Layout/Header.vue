@@ -27,7 +27,7 @@ import {ref} from "vue";
 const headerOptions = ref([
   {
     key: 'home',
-    url: '/',
+    url: '/reservas',
     text: 'Reservaciones',
     dropdown: false,
   },
@@ -45,7 +45,7 @@ const headerOptions = ref([
   },
   {
     key: 'logout',
-    url: '/in-dev',
+    url: '/',
     text: 'Cerrar sesión',
     dropdown: false,
   },

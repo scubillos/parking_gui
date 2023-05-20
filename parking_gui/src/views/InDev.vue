@@ -1,27 +1,12 @@
 <template>
-  <MDBContainer>
-    <MDBRow>
-      <MDBCol cols="1" />
-      <MDBCol cols="10" class="mt-5 text-center">
-        <h3>En desarrollo</h3>
-        <p>Sitio en construcción.</p>
-        <div>
-          <img src="public/in-dev.jpg" width="200">
-        </div>
-      </MDBCol>
-      <MDBCol cols="1" />
-    </MDBRow>
-  </MDBContainer>
+  <authenticator>
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
 </template>
-
-<script setup lang="ts">
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol
-} from "mdb-vue-ui-kit";
+<script setup>
+  import { Authenticator } from "@aws-amplify/ui-vue";
+  import "@aws-amplify/ui-vue/styles.css";
 </script>
-
-<style scoped>
-
-</style>
