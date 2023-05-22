@@ -1,4 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { useAuthenticator } from "@aws-amplify/ui-vue";
+import { toRefs } from 'vue';
+import {toast} from "vue3-toastify";
+const { authStatus } = toRefs(useAuthenticator());
 
 const routes = [
   {
@@ -26,6 +30,15 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'Login' && !(authStatus.value === 'authenticated')) {
+    console.log("paso Before")
+    toast.error("Acceso denegado");
+    next({ name: 'Login' })
+  }
+  else{
+     next()
+  }
+});
 
 export default router;

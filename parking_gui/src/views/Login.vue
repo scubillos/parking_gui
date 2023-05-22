@@ -1,56 +1,60 @@
 <template>
-  <form class="align-middle mb-0 container-sm">
-    <!-- Email input -->
-    <MDBInput
-      type="email"
-      label="Usuario"
-      v-bind:maxlength="LoginStore.maxuser"
-      id="form1Email"
-      v-model="LoginStore.login.user"
-      wrapperClass="mb-4"
-    />
-    <!-- Password input -->
-    <MDBInput
-      type="password"
-      label="Contraseña"
-      id="form1Password"
-      v-bind:maxlength="LoginStore.maxpwd"
-      v-model="LoginStore.login.pwd"
-      wrapperClass="mb-4"
-    />
-    <!-- 2 column grid layout for inline styling -->
-    <MDBRow class="mb-4">
-      <MDBCol class="d-flex justify-content-center">
-        <!-- Checkbox -->
-        <MDBCheckbox
-          label="Recuperar Contraseña"
-          id="form1LoginCheck"
-          v-model="LoginStore.olvido"
-          wrapperClass="mb-3 mb-md-0"
-        />
-      </MDBCol>
-      <MDBCol>
-        <!-- Simple link -->
-        <a href="#!">Olvido contraseña?</a>
-      </MDBCol>
-    </MDBRow>
-    <!-- Submit button -->
-    <MDBBtn color="primary" block @click="entrar"> Iniciar Sesión</MDBBtn>
+   <form @submit.prevent="onSubmit">
+    <div>{{ authStatus }}</div>
+
+    <div>
+      <authenticator variation="modal">
+        <template v-slot="{ user, signOut }">
+          <h1>Hello {{ user.username }}!</h1>
+          <button @click="signOut">Salir</button>
+        </template>
+      </authenticator>
+    </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { 
-  MDBInput,
-  MDBRow,
-  MDBCheckbox,
-  MDBBtn,
-  MDBCol,
- } from "mdb-vue-ui-kit";
- import { useLoginStore } from "../stores/Reservations/LoginStore";
+import { Authenticator, useAuthenticator } from "@aws-amplify/ui-vue";
+import { Hub, Logger  } from 'aws-amplify';  
+import { toRefs } from 'vue';
+import "@aws-amplify/ui-vue/styles.css";
+import { useLoginStore } from "../stores/Reservations/LoginStore";
 
- const LoginStore = useLoginStore();
- const entrar = async () => {
-    await LoginStore.enviar();
+const LoginStore = useLoginStore();
+const entrar = async () => {
+   await LoginStore.enviar();
 };
+const salir = async () => {
+   await LoginStore.salir();
+};
+
+const { authStatus } = toRefs(useAuthenticator());
+
+const onSubmit = (event: Event) => {
+  console.log("Ejecuto Evento on Submit");
+  //Auth.signIn(
+   // Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
+  //);
+};
+
+
+const logger = new Logger('My-Logger');
+const listener = (data) => {
+  switch (data.payload.event) {
+    case 'configured':
+      logger.info('the Auth module is configured');
+      break;
+    case 'signIn':
+      logger.info('user signed in');
+      entrar();
+      console.log("paso Sigin");
+      break;
+    case 'signOut':
+      logger.info('user signed out');
+      salir();
+      break;
+    }
+};
+Hub.listen('auth', listener);
+
 </script>

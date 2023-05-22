@@ -7,7 +7,7 @@ import router from "./router";
 
 import "./style.css";
 import 'vue3-toastify/dist/index.css';
-import { Amplify } from 'aws-amplify';
+import { Amplify, Hub, Auth } from 'aws-amplify';  
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 

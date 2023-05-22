@@ -84,7 +84,7 @@
   </MDBModal>
 
 </template>
-
+ 
 <script setup lang="ts">
 import {
   MDBTable,
@@ -105,6 +105,8 @@ import {
 import FormReservation from './FormReservation.vue';
 import { ref, onMounted } from "vue";
 import { useReservationsStore } from "../../stores/Reservations/ReservationsStore";
+import { Authenticator } from "@aws-amplify/ui-vue";
+import "@aws-amplify/ui-vue/styles.css";
 
 const ReservationsStore = useReservationsStore();
 

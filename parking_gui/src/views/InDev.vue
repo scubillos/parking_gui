@@ -1,8 +1,8 @@
 <template>
-  <authenticator>
+  <authenticator variation="modal">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
+      <button @click="signOut">Esta Seguro que desea cerrar la Sesion?</button>
     </template>
   </authenticator>
 </template>

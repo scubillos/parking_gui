@@ -6,7 +6,8 @@ import {
 } from "./LoginInterfaces";
 import {toast} from "vue3-toastify";
 import router from "../../router";
-import { Auth } from 'aws-amplify';
+import { Authenticator, useAuthenticator } from "@aws-amplify/ui-vue";
+import { computed, toRefs } from 'vue';
 
 export const useLoginStore = defineStore('loginStore', {
   state: () => {
@@ -23,29 +24,27 @@ export const useLoginStore = defineStore('loginStore', {
   actions: {
 
     // Validations
-    async vehicleByPlat(plat: string): Promise<boolean> {
-      const response = await axiosHttp.get(`/vehicle/plat/${plat}`);
-      return plat === response.data.data.plat_number;
+    async sesion_valida(): Promise<boolean> {      
+      const { authStatus } = toRefs(useAuthenticator());
+      //const isAuthenticated = computed(() => authStatus.value === 'authenticated');
+      if (authStatus.value === 'authenticated'){
+        return true
+      }else{
+        toast.success("Acceso denegado");
+        router.replace({path:"/"});
+        return false
+      }     
     },
     // CRUD
     async enviar(): Promise<void> {       
 
-      //const response = await axiosHttp.post('/auth/login', this.login);
-      //if (response.data.success) {
         toast.success("Ingreso exitoso");
-        this.islogged = true;
-        try {
-          const user = await Auth.signIn( this.login.user, this.login.pwd);
-        } catch (error) {
-        console.log('error signing in', error);
-        }
-        //router.replace({path:"reservas", query: {prueba: this.islogged }});
-      //}
+        router.replace({path:"reservas"});
     },
 
-    async update(): Promise<void> {
-      //const response = await axiosHttp.put(`/reservation/${this.form.id}`, this.form);
-      toast.success("Reservación actualizada exitosamente");
+    async salir(): Promise<void> {
+      toast.success("Ha Salido del Sistema");
+      router.replace({path:"/"});
     }
   }
 });
