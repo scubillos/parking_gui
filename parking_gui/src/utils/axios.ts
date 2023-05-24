@@ -1,6 +1,6 @@
 import axios from "axios";
 import {toast} from "vue3-toastify";
-import { Auth } from 'aws-amplify'; 
+import { Auth } from 'aws-amplify';
 
 const axiosHttp = axios.create({
   //baseURL: 'http://localhost:8000/api',
@@ -26,7 +26,7 @@ axiosHttp.interceptors.response.use(function (response) {
     }
     return Promise.reject(error);
   });
-  
+
   axiosHttp.interceptors.request.use(async config => {
       // Do something before request is sent
             let token = await Auth.currentSession().then (data => (data.getAccessToken().getJwtToken()));
