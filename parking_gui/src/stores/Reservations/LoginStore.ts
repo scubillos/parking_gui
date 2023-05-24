@@ -40,7 +40,7 @@ export const useLoginStore = defineStore('loginStore', {
         setTimeout(function(){
           toast.success("Ingreso exitoso");
           router.replace({path:"reservas"});
-        },500) ; 
+        },200) ; 
     },
 
     async salir(): Promise<void> {
