@@ -9,6 +9,7 @@ import {
 } from "./ReservationsInterfaces";
 import {toast} from "vue3-toastify";
 
+
 export const useReservationsStore = defineStore('reservationsStore', {
   state: () => {
     return {
@@ -27,7 +28,9 @@ export const useReservationsStore = defineStore('reservationsStore', {
   actions: {
     async getAll(): Promise<void> {
       this.textTableEmpty = 'Cargando registros, por favor espere...';
-      const response = await axiosHttp.get('/reservations');
+      //const response = await axiosHttp.get('/reservations');
+      const response = await axiosHttp.get('/vehiculos');
+      
       this.reservation_list = response.data.data;
       if (this.reservation_list.length === 0) {
         this.textTableEmpty = 'No hay registros disponibles';

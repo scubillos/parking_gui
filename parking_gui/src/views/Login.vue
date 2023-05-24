@@ -22,7 +22,7 @@ import { useLoginStore } from "../stores/Reservations/LoginStore";
 
 const LoginStore = useLoginStore();
 const entrar = async () => {
-   await LoginStore.enviar();
+  await LoginStore.enviar();
 };
 const salir = async () => {
    await LoginStore.salir();

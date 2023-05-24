@@ -6,8 +6,8 @@ import {
 } from "./LoginInterfaces";
 import {toast} from "vue3-toastify";
 import router from "../../router";
-import { Authenticator, useAuthenticator } from "@aws-amplify/ui-vue";
-import { computed, toRefs } from 'vue';
+import { useAuthenticator } from "@aws-amplify/ui-vue";
+import { toRefs } from 'vue';
 
 export const useLoginStore = defineStore('loginStore', {
   state: () => {
@@ -37,9 +37,10 @@ export const useLoginStore = defineStore('loginStore', {
     },
     // CRUD
     async enviar(): Promise<void> {       
-
-        toast.success("Ingreso exitoso");
-        router.replace({path:"reservas"});
+        setTimeout(function(){
+          toast.success("Ingreso exitoso");
+          router.replace({path:"reservas"});
+        },500) ; 
     },
 
     async salir(): Promise<void> {

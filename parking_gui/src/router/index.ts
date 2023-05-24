@@ -30,8 +30,9 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && !(authStatus.value === 'authenticated')) {
+router.beforeEach(async (to, from, next) => {
+   let isauth = authStatus.value === 'authenticated'
+  if (to.name !== 'Login' && !(isauth)) {
     console.log("paso Before")
     toast.error("Acceso denegado");
     next({ name: 'Login' })
