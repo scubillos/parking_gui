@@ -18,4 +18,7 @@ export default defineConfig({
       "./runtimeConfig": "./runtimeConfig.browser"
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1600,
+  }
 });
