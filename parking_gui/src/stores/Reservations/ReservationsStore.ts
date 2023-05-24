@@ -47,7 +47,7 @@ export const useReservationsStore = defineStore('reservationsStore', {
         });
         this.form.location_id = 0;
 
-        const response = await axiosHttp.get(`/locations/date/${this.form.schedule_day}/schedule/${this.form.schedule}`);
+        const response = await axiosHttp.get(`/parking/locations/date/${this.form.schedule_day}/schedule/${this.form.schedule}`);
         this.locations = [] as Location[];
         response.data.data.forEach((row : object) => {
           this.locations.push({
@@ -94,30 +94,30 @@ export const useReservationsStore = defineStore('reservationsStore', {
 
     // Validations
     async vehicleByPlat(plat: string): Promise<boolean> {
-      const response = await axiosHttp.get(`/vehicle/plat/${plat}`);
+      const response = await axiosHttp.get(`/parking/vehicle/plat/${plat}`);
       return plat === response.data.data.plat_number;
     },
 
     // CRUD
     async create(): Promise<void> {
-      const response = await axiosHttp.post('/reservation', this.form);
+      const response = await axiosHttp.post('/parking/reservation', this.form);
       if (response.data.success) {
         toast.success("Reservación creada exitosamente");
       }
     },
 
     async update(): Promise<void> {
-      const response = await axiosHttp.put(`/reservation/${this.form.id}`, this.form);
+      const response = await axiosHttp.put(`/parking/reservation/${this.form.id}`, this.form);
       toast.success("Reservación actualizada exitosamente");
     },
 
     async show(id: number): Promise<void> {
-      const response = await axiosHttp.get(`/reservation/${id}`);
+      const response = await axiosHttp.get(`/parking/reservation/${id}`);
       this.form = response.data.data;
     },
 
     async cancel(id: number): Promise<void> {
-      const response = await axiosHttp.delete(`/reservation/${id}`);
+      const response = await axiosHttp.delete(`/parking/reservation/${id}`);
       if (response.status === 204) {
         toast.success("Reservación cancelada correctamente");
         await this.getAll();

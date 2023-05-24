@@ -37,9 +37,16 @@ const onSubmit = (event: Event) => {
   //);
 };
 
+interface ListenerInterface {
+  payload: PayloadInterface
+}
+
+interface PayloadInterface {
+  event: string
+}
 
 const logger = new Logger('My-Logger');
-const listener = (data) => {
+const listener = (data:ListenerInterface) => {
   switch (data.payload.event) {
     case 'configured':
       logger.info('the Auth module is configured');

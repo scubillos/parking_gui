@@ -12,4 +12,10 @@ export default defineConfig({
     devSourcemap: true,
   },
   plugins: [vue()],
+  resolve: {
+    alias: {
+      // added for AWS-SDK with vite
+      "./runtimeConfig": "./runtimeConfig.browser"
+    },
+  },
 });

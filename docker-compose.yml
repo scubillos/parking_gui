@@ -9,7 +9,7 @@ services:
     image: node:14-vuejs3-parking
     working_dir: /var/www/html/app/
     ports:
-      - 3000:3000
+      - ${APP_PORT}:3000
     volumes:
       - ./${DIR_APP}/:/var/www/html/app
     tty: true

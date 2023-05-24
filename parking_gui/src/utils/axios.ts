@@ -3,6 +3,7 @@ import {toast} from "vue3-toastify";
 
 const axiosHttp = axios.create({
   baseURL: 'http://localhost:8000/api',
+  // baseURL: 'url_api_gateway',
 });
 
 axiosHttp.interceptors.response.use(function (response) {
