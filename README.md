@@ -20,12 +20,14 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente:
   ```bash
   Copy code
   cd tu-proyecto
-  
+  ```
+
 3. Copia el archivo de configuración de ejemplo y renómbralo:
 
   ```bash
   Copy code
   cp .env.example .env
+  ```
  
 4.Abre el archivo .env y configúralo según tus necesidades.
 
@@ -34,15 +36,17 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente:
   ```bash
   Copy code
   docker-compose up -d
+  ```
 
 6. Instala las dependencias del proyecto:
 
   ```bash
   Copy code
   docker-compose exec app npm install   # Si utilizas NPM
-
+  
   Copy code
   docker-compose exec app yarn install  # Si utilizas Yarn
+  ```
 
 7. Inicia el servidor de desarrollo:
 
@@ -52,12 +56,14 @@ Sigue estos pasos para configurar y ejecutar el proyecto localmente:
   
   Copy code
   docker-compose exec app yarn dev      # Si utilizas Yarn
+  ```
 
 8. Accede a la aplicación en tu navegador web:
 
   ```bash
   Copy code
   http://localhost:3000
+  ```
   
 9. Uso del proyecto
   Una vez iniciado el proyecto, configure los archivos que se encuentan en la carpeta app dentro de un IDE, cada vez que se van aplicando cambios sobre los archivos del proyecto, la interfaz gráfica se irá actualizando automáticamente-
